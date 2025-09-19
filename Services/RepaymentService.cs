@@ -1,6 +1,7 @@
 ﻿using LoanManagementSystem.Models;
 using LoanManagementSystem.Repository;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LoanManagementSystem.Services
 {
@@ -18,6 +19,10 @@ namespace LoanManagementSystem.Services
         public void UpdateRepayment(Repayment repayment) => _repo.Update(repayment);
 
         public void DeleteRepayment(int id) => _repo.Delete(id);
+        //public decimal GetTotalPaidForLoan(int loanId)
+        //{
+        //    return _repo.GetAll().Where(r => r.LoanId == loanId).Sum(r => r.AmountPaid);
+        //}
     }
 
 }

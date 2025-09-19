@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LoanManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,LoanOfficer")]
     public class ContractController : Controller
     {
         private readonly IContractService _contractService;
@@ -26,7 +27,7 @@ namespace LoanManagementSystem.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType");
+            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName");
             return View();
         }
 

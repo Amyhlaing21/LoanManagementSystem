@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace LoanManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,LoanOfficer")]
     public class BorrowerController : Controller
     {
         private readonly IBorrowerService _borrowerService;

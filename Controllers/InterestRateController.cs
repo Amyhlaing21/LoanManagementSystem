@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LoanManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class InterestRateController : Controller
     {
         private readonly IInterestRateService _interestRateService;

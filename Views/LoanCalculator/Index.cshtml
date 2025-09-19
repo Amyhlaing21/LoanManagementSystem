@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Loan Calculator";
+}
+
+<h2>Loan Calculator</h2>
+
+@using (Html.BeginForm("Calculate", "LoanCalculator", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="principal">Loan Amount</label>
+        <input type="text" name="principal" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="annualRate">Interest Rate (%)</label>
+        <input type="text"  name="annualRate" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="months">Months</label>
+        <input type="text" name="months" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Calculate</button>
+}
+
+@if (ViewBag.MonthlyPayment != null)
+{
+    <div class="alert alert-info mt-3">
+        Monthly repayment: <strong>@ViewBag.MonthlyPayment</strong>
+    </div>
+}

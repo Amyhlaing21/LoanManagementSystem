@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LoanManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,LoanOfficer")]
     public class RepaymentController : Controller
     {
         private readonly IRepaymentService _repaymentService;
@@ -28,7 +29,7 @@ namespace LoanManagementSystem.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType");
+            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName");
             return View();
         }
 
@@ -60,7 +61,7 @@ namespace LoanManagementSystem.Controllers
             var repayment = _repaymentService.GetRepaymentById(id);
             if (repayment == null) return HttpNotFound();
 
-            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType", repayment.LoanId);
+            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName", repayment.LoanId);
             return View(repayment);
         }
 
@@ -71,7 +72,7 @@ namespace LoanManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType", repayment.LoanId);
+                ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName", repayment.LoanId);
                 return View(repayment);
             }
 

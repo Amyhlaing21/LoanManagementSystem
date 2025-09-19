@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LoanManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,LoanOfficer")]
     public class TransactionController : Controller
     {
         private readonly ITransactionService _transactionService;
@@ -29,7 +30,7 @@ namespace LoanManagementSystem.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType");
+            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName");
             return View();
         }
 
@@ -39,7 +40,7 @@ namespace LoanManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType", transaction.LoanId);
+                ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName", transaction.LoanId);
                 return View(transaction);
             }
 
@@ -53,7 +54,7 @@ namespace LoanManagementSystem.Controllers
             var transaction = _transactionService.GetTransactionById(id);
             if (transaction == null) return HttpNotFound();
 
-            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "LoanType", transaction.LoanId);
+            ViewBag.LoanId = new SelectList(_loanService.GetAllLoans(), "Id", "Borrower.FullName", transaction.LoanId);
             return View(transaction);
         }
 

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LoanManagementSystem.Controllers
 {
+    [Authorize(Roles = "Admin,LoanOfficer")]
     public class LoanController : Controller
     {
         private readonly ILoanService _loanService;
@@ -40,6 +41,14 @@ namespace LoanManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Loan loan)
         {
+            if (loan.StartDate > loan.EndDate)
+            {
+                ModelState.AddModelError("StartDate", "Start Date must be earlier than End Date.");
+                ViewBag.Borrowers = new SelectList(_borrowerService.GetAllBorrowers(), "Id", "FullName");
+                ViewBag.InterestRates = _interestRateService.GetAllRates();
+                return View(loan);
+            }
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Borrowers = new SelectList(_borrowerService.GetAllBorrowers(), "Id", "FullName");

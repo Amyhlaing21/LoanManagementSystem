@@ -21,11 +21,14 @@ namespace LoanManagementSystem.Models
         public string LoanType { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
-        [Required]
-        public DateTime EndDate { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
+        [DateRange("StartDate", ErrorMessage = "End Date must be greater than or equal to Start Date.")]
+        public DateTime EndDate { get; set; }
         [Required]
         public int? InterestRateId { get; set; }
         [ForeignKey("InterestRateId")]

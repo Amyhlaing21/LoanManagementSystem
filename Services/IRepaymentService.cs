@@ -14,6 +14,8 @@ namespace LoanManagementSystem.Services
         void CreateRepayment(Repayment repayment);
         void UpdateRepayment(Repayment repayment);
         void DeleteRepayment(int id);
+
+        //decimal GetTotalPaidForLoan(int loanId);
     }
 }
 
